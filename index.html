@@ -1,169 +1,146 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #fff; }
-  .page { background: #fff; color: #0D1B4B; max-width: 600px; margin: 0 auto; }
-  .top-bar { background: #0D1B4B; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
-  .logo { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: 1px; }
-  .logo span { color: #6DB8F2; }
-  .badge-top { background: rgba(109,184,242,0.18); color: #6DB8F2; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; }
-  .hero { background: #0D1B4B; padding: 40px 24px 36px; text-align: center; }
-  .hero-badge { display: inline-block; background: rgba(109,184,242,0.15); color: #6DB8F2; font-size: 11px; font-weight: 500; padding: 5px 14px; border-radius: 20px; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 16px; }
-  .hero h1 { font-size: 22px; font-weight: 700; color: #fff; line-height: 1.35; margin-bottom: 12px; }
-  .hero h1 em { color: #6DB8F2; font-style: normal; }
-  .hero p { font-size: 14px; color: rgba(255,255,255,0.72); line-height: 1.65; }
-  .section { padding: 28px 24px; }
-  .section-label { font-size: 11px; font-weight: 500; color: #6DB8F2; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
-  .carta { background: #F7F9FF; border-left: 3px solid #0D1B4B; border-radius: 0 8px 8px 0; padding: 20px 20px; font-size: 14px; line-height: 1.75; color: #1a2a50; }
-  .carta p { margin-bottom: 12px; }
-  .carta p:last-child { margin-bottom: 0; }
-  .signature { margin-top: 20px; display: flex; align-items: center; gap: 12px; }
-  .avatar { width: 40px; height: 40px; border-radius: 50%; background: #0D1B4B; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #6DB8F2; flex-shrink: 0; }
-  .sig-name { font-weight: 600; color: #0D1B4B; font-size: 14px; }
-  .sig-role { font-size: 12px; color: #5a6a9a; margin-top: 2px; }
-  .screens-section { background: #F0F4FF; padding: 28px 24px; }
-  .screens-label { font-size: 11px; font-weight: 500; color: #0D1B4B; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
-  .screens-title { font-size: 16px; font-weight: 700; color: #0D1B4B; margin-bottom: 4px; }
-  .screens-sub { font-size: 13px; color: #5a6a9a; margin-bottom: 16px; }
-  .screens-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .screen-card { background: #fff; border-radius: 10px; overflow: hidden; border: 0.5px solid #d0d8f0; }
-  .screen-img { width: 100%; height: 200px; object-fit: cover; object-position: top; display: block; }
-  .screen-label { font-size: 11px; font-weight: 500; color: #0D1B4B; padding: 8px 10px; text-align: center; border-top: 0.5px solid #e8edf8; }
-  .features { padding: 28px 24px; }
-  .features-title { font-size: 16px; font-weight: 700; color: #0D1B4B; margin-bottom: 4px; }
-  .features-sub { font-size: 13px; color: #5a6a9a; margin-bottom: 16px; }
-  .feat-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .feat-item { display: flex; align-items: center; gap: 8px; background: #F7F9FF; border-radius: 8px; padding: 10px 12px; font-size: 13px; font-weight: 500; color: #0D1B4B; }
-  .feat-dot { width: 7px; height: 7px; border-radius: 50%; background: #6DB8F2; flex-shrink: 0; }
-  .divider { height: 0.5px; background: #dce4f5; margin: 0 24px; }
-  .steps-section { padding: 28px 24px; }
-  .steps-title { font-size: 16px; font-weight: 700; color: #0D1B4B; margin-bottom: 16px; }
-  .steps { display: flex; flex-direction: column; gap: 14px; }
-  .step { display: flex; align-items: flex-start; gap: 12px; }
-  .step-num { width: 28px; height: 28px; border-radius: 50%; background: #0D1B4B; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-  .step-text strong { font-size: 14px; font-weight: 600; color: #0D1B4B; display: block; margin-bottom: 2px; }
-  .step-text span { font-size: 13px; color: #5a6a9a; line-height: 1.5; }
-  .cta-section { padding: 32px 24px; text-align: center; }
-  .cta-title { font-size: 18px; font-weight: 700; color: #0D1B4B; margin-bottom: 8px; }
-  .cta-sub { font-size: 14px; color: #5a6a9a; margin-bottom: 24px; line-height: 1.6; }
-  .cta-btn { display: block; background: #0D1B4B; color: #fff; font-size: 16px; font-weight: 600; padding: 16px 24px; border-radius: 10px; text-decoration: none; letter-spacing: 0.3px; }
-  .cta-note { font-size: 12px; color: #8a9abf; margin-top: 12px; line-height: 1.6; }
-  .footer { background: #0D1B4B; padding: 20px 24px; text-align: center; }
-  .footer p { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.6; }
-  .footer span { color: rgba(109,184,242,0.8); }
-</style>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convite Exclusivo — Clyvo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #fff; color: #0D1B4B; }
+    .page { max-width: 600px; margin: 0 auto; }
+    .top-bar { background: #0D1B4B; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: 1px; }
+    .logo span { color: #6DB8F2; }
+    .badge-top { background: rgba(109,184,242,0.18); color: #6DB8F2; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; }
+    .hero { background: #0D1B4B; padding: 40px 24px 36px; text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(109,184,242,0.15); color: #6DB8F2; font-size: 11px; font-weight: 500; padding: 5px 14px; border-radius: 20px; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 16px; }
+    .hero h1 { font-size: 22px; font-weight: 700; color: #fff; line-height: 1.35; margin-bottom: 12px; }
+    .hero h1 em { color: #6DB8F2; font-style: normal; }
+    .hero p { font-size: 14px; color: rgba(255,255,255,0.72); line-height: 1.65; }
+    .section { padding: 28px 24px; }
+    .section-label { font-size: 11px; font-weight: 500; color: #6DB8F2; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+    .carta { background: #F7F9FF; border-left: 3px solid #0D1B4B; border-radius: 0 8px 8px 0; padding: 20px; font-size: 14px; line-height: 1.75; color: #1a2a50; }
+    .carta p { margin-bottom: 12px; }
+    .carta p:last-child { margin-bottom: 0; }
+    .signature { margin-top: 20px; display: flex; align-items: center; gap: 12px; }
+    .avatar { width: 40px; height: 40px; border-radius: 50%; background: #0D1B4B; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #6DB8F2; flex-shrink: 0; }
+    .sig-name { font-weight: 600; color: #0D1B4B; font-size: 14px; }
+    .sig-role { font-size: 12px; color: #5a6a9a; margin-top: 2px; }
+    .features { padding: 28px 24px; background: #F0F4FF; }
+    .features-title { font-size: 16px; font-weight: 700; color: #0D1B4B; margin-bottom: 4px; }
+    .features-sub { font-size: 13px; color: #5a6a9a; margin-bottom: 16px; }
+    .feat-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .feat-item { display: flex; align-items: center; gap: 8px; background: #fff; border-radius: 8px; padding: 10px 12px; font-size: 13px; font-weight: 500; color: #0D1B4B; }
+    .feat-dot { width: 7px; height: 7px; border-radius: 50%; background: #6DB8F2; flex-shrink: 0; }
+    .divider { height: 0.5px; background: #dce4f5; margin: 0 24px; }
+    .steps-section { padding: 28px 24px; }
+    .steps-title { font-size: 16px; font-weight: 700; color: #0D1B4B; margin-bottom: 16px; }
+    .steps { display: flex; flex-direction: column; gap: 14px; }
+    .step { display: flex; align-items: flex-start; gap: 12px; }
+    .step-num { width: 28px; height: 28px; border-radius: 50%; background: #0D1B4B; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .step-text strong { font-size: 14px; font-weight: 600; color: #0D1B4B; display: block; margin-bottom: 2px; }
+    .step-text span { font-size: 13px; color: #5a6a9a; line-height: 1.5; }
+    .cta-section { padding: 32px 24px; text-align: center; }
+    .cta-title { font-size: 18px; font-weight: 700; color: #0D1B4B; margin-bottom: 8px; }
+    .cta-sub { font-size: 14px; color: #5a6a9a; margin-bottom: 24px; line-height: 1.6; }
+    .cta-btn { display: block; background: #0D1B4B; color: #fff; font-size: 16px; font-weight: 600; padding: 16px 24px; border-radius: 10px; text-decoration: none; letter-spacing: 0.3px; }
+    .cta-btn:hover { background: #1a3270; }
+    .cta-note { font-size: 12px; color: #8a9abf; margin-top: 12px; line-height: 1.6; }
+    .footer { background: #0D1B4B; padding: 20px 24px; text-align: center; }
+    .footer p { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+    .footer span { color: rgba(109,184,242,0.8); }
+  </style>
+</head>
+<body>
+  <div class="page">
 
-<div class="page">
-  <div class="top-bar">
-    <div class="logo">CL<span>Y</span>VO</div>
-    <div class="badge-top">Piloto · F&F</div>
-  </div>
+    <div class="top-bar">
+      <div class="logo">CL<span>Y</span>VO</div>
+      <div class="badge-top">Piloto · F&F</div>
+    </div>
 
-  <div class="hero">
-    <div class="hero-badge">Convite exclusivo</div>
-    <h1>Você foi selecionado para moldar o futuro da <em>telemedicina</em></h1>
-    <p>Um grupo restrito de médicos está sendo convidado para testar em primeira mão uma plataforma que devolve tempo clínico real ao seu dia.</p>
-  </div>
+    <div class="hero">
+      <div class="hero-badge">Convite exclusivo</div>
+      <h1>Você foi selecionado para moldar o futuro da <em>telemedicina</em></h1>
+      <p>Um grupo restrito de médicos está sendo convidado para testar em primeira mão uma plataforma que devolve tempo clínico real ao seu dia.</p>
+    </div>
 
-  <div class="section">
-    <div class="section-label">Carta de convite</div>
-    <div class="carta">
-      <p>Prezado(a) Doutor(a),</p>
-      <p>Sou o Dr. Altemar, conselheiro da Clyvo — e estou te convidando pessoalmente para participar do nosso piloto exclusivo de médicos fundadores.</p>
-      <p>A Clyvo é uma plataforma de telemedicina com IA que elimina a burocracia do pós-atendimento. Receita, atestado, pedido de exame, encaminhamento — tudo gerado por comando de voz em segundos, assinado digitalmente.</p>
-      <p>Quem faz volume em telemedicina hoje perde entre 2 e 3 horas por dia só com documentação. A Clyvo devolve esse tempo para o que importa: o cuidado.</p>
-      <p>Estou convidando um grupo muito seleto de colegas para usar antes de todo mundo e ajudar a moldar o produto. Sua opinião vai de fato impactar o que construímos.</p>
-      <p>Se você topar, é só clicar abaixo e escolher um horário de 45 minutos. Nós cuidamos do resto.</p>
-      <div class="signature">
-        <div class="avatar">DA</div>
-        <div>
-          <div class="sig-name">Dr. Altemar</div>
-          <div class="sig-role">Conselheiro · Clyvo</div>
+    <div class="section">
+      <div class="section-label">Carta de convite</div>
+      <div class="carta">
+        <p>Prezado(a) Doutor(a),</p>
+        <p>Sou o Dr. Altemar, conselheiro da Clyvo — e estou te convidando pessoalmente para participar do nosso piloto exclusivo de médicos fundadores.</p>
+        <p>A Clyvo é uma plataforma de telemedicina com IA que elimina a burocracia do pós-atendimento. Receita, atestado, pedido de exame, encaminhamento — tudo gerado por comando de voz em segundos, assinado digitalmente.</p>
+        <p>Quem faz volume em telemedicina hoje perde entre 2 e 3 horas por dia só com documentação. A Clyvo devolve esse tempo para o que importa: o cuidado.</p>
+        <p>Estou convidando um grupo muito seleto de colegas para usar antes de todo mundo e ajudar a moldar o produto. Sua opinião vai de fato impactar o que construímos.</p>
+        <p>Se você topar, é só clicar abaixo e escolher um horário de 45 minutos. Nós cuidamos do resto.</p>
+        <div class="signature">
+          <div class="avatar">DA</div>
+          <div>
+            <div class="sig-name">Dr. Altemar</div>
+            <div class="sig-role">Conselheiro · Clyvo</div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="divider"></div>
-
-  <div class="screens-section">
-    <div class="screens-label">Veja na prática</div>
-    <div class="screens-title">O que você vai experimentar</div>
-    <div class="screens-sub">Telas reais do aplicativo</div>
-    <div class="screens-grid">
-      <div class="screen-card">
-        <img class="screen-img" src="https://i.imgur.com/x1JlNuu.png" alt="Comando por voz" />
-        <div class="screen-label">Comando por voz</div>
-      </div>
-      <div class="screen-card">
-        <img class="screen-img" src="https://i.imgur.com/bDp7eiS.png" alt="Consulta com IA" />
-        <div class="screen-label">Consulta com IA</div>
-      </div>
-      <div class="screen-card">
-        <img class="screen-img" src="https://i.imgur.com/OWwunID.png" alt="Gestão de pacientes" />
-        <div class="screen-label">Gestão de pacientes</div>
-      </div>
-      <div class="screen-card">
-        <img class="screen-img" src="https://i.imgur.com/drqmn3Z.png" alt="Pedido de exame" />
-        <div class="screen-label">Pedido de exame</div>
+    <div class="features">
+      <div class="features-title">O assistente médico gera tudo</div>
+      <div class="features-sub">Por comando de voz ou texto, durante ou após a consulta</div>
+      <div class="feat-list">
+        <div class="feat-item"><div class="feat-dot"></div>Receituário completo</div>
+        <div class="feat-item"><div class="feat-dot"></div>Pedido de exame (TUSS)</div>
+        <div class="feat-item"><div class="feat-dot"></div>Atestado médico</div>
+        <div class="feat-item"><div class="feat-dot"></div>Encaminhamento</div>
+        <div class="feat-item"><div class="feat-dot"></div>Relatório clínico</div>
+        <div class="feat-item"><div class="feat-dot"></div>Assinatura digital</div>
+        <div class="feat-item"><div class="feat-dot"></div>Sugestão de CID</div>
+        <div class="feat-item"><div class="feat-dot"></div>Copiloto em tempo real</div>
       </div>
     </div>
-  </div>
 
-  <div class="features">
-    <div class="features-title">O assistente médico gera tudo</div>
-    <div class="features-sub">Por comando de voz ou texto, durante ou após a consulta</div>
-    <div class="feat-list">
-      <div class="feat-item"><div class="feat-dot"></div>Receituário completo</div>
-      <div class="feat-item"><div class="feat-dot"></div>Pedido de exame (TUSS)</div>
-      <div class="feat-item"><div class="feat-dot"></div>Atestado médico</div>
-      <div class="feat-item"><div class="feat-dot"></div>Encaminhamento</div>
-      <div class="feat-item"><div class="feat-dot"></div>Relatório clínico</div>
-      <div class="feat-item"><div class="feat-dot"></div>Assinatura digital</div>
-      <div class="feat-item"><div class="feat-dot"></div>Sugestão de CID</div>
-      <div class="feat-item"><div class="feat-dot"></div>Copiloto em tempo real</div>
-    </div>
-  </div>
+    <div class="divider"></div>
 
-  <div class="divider"></div>
-
-  <div class="steps-section">
-    <div class="steps-title">Como funciona a participação</div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-text">
-          <strong>Você agenda uma sessão de 45 min</strong>
-          <span>Nossa equipe te acompanha no primeiro acesso e simula uma consulta real com você.</span>
+    <div class="steps-section">
+      <div class="steps-title">Como funciona a participação</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <strong>Você agenda uma sessão de 45 min</strong>
+            <span>Nossa equipe te acompanha no primeiro acesso e simula uma consulta real com você.</span>
+          </div>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-text">
-          <strong>Você usa o app por algumas semanas</strong>
-          <span>A meta é realizar ao menos 7 consultas pela plataforma. Suporte direto disponível.</span>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <strong>Você usa o app por algumas semanas</strong>
+            <span>A meta é realizar ao menos 7 consultas pela plataforma. Suporte direto disponível.</span>
+          </div>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-text">
-          <strong>Seu feedback molda o produto</strong>
-          <span>O que você reportar vai direto para o time de produto. Você é co-criador da versão final.</span>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            <strong>Seu feedback molda o produto</strong>
+            <span>O que você reportar vai direto para o time de produto. Você é co-criador da versão final.</span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="divider"></div>
+    <div class="divider"></div>
 
-  <div class="cta-section">
-    <div class="cta-title">Pronto para participar?</div>
-    <div class="cta-sub">Escolha um horário de 45 minutos.<br>Do cadastro à primeira consulta em menos de 20 minutos.</div>
-    <a class="cta-btn" href="https://calendar.app.google/2PmjLnkUnS58hSet8" target="_blank">Escolher meu horário</a>
-    <div class="cta-note">Gratuito durante o piloto · Sem compromisso · Acesso exclusivo</div>
-  </div>
+    <div class="cta-section">
+      <div class="cta-title">Pronto para participar?</div>
+      <div class="cta-sub">Escolha um horário de 45 minutos.<br>Do cadastro à primeira consulta em menos de 20 minutos.</div>
+      <a class="cta-btn" href="https://calendar.app.google/2PmjLnkUnS58hSet8" target="_blank">Escolher meu horário</a>
+      <div class="cta-note">Gratuito durante o piloto · Sem compromisso · Acesso exclusivo</div>
+    </div>
 
-  <div class="footer">
-    <p>CLYVO GLOBAL · São Bernardo do Campo, SP<br><span>contato@clyvo.global</span></p>
+    <div class="footer">
+      <p>CLYVO GLOBAL · São Bernardo do Campo, SP<br><span>contato@clyvo.global</span></p>
+    </div>
+
   </div>
-</div>
+</body>
+</html>
