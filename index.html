@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -24,7 +23,8 @@
     .carta p { margin-bottom: 12px; }
     .carta p:last-child { margin-bottom: 0; }
     .signature { margin-top: 20px; display: flex; align-items: center; gap: 12px; }
-    .avatar { width: 40px; height: 40px; border-radius: 50%; background: #0D1B4B; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #6DB8F2; flex-shrink: 0; }
+    .avatar { width: 48px; height: 48px; border-radius: 50%; overflow: hidden; flex-shrink: 0; border: 2px solid #0D1B4B; }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
     .sig-name { font-weight: 600; color: #0D1B4B; font-size: 14px; }
     .sig-role { font-size: 12px; color: #5a6a9a; margin-top: 2px; }
     .features { padding: 28px 24px; background: #F0F4FF; }
@@ -44,8 +44,6 @@
     .cta-section { padding: 32px 24px; text-align: center; }
     .cta-title { font-size: 18px; font-weight: 700; color: #0D1B4B; margin-bottom: 8px; }
     .cta-sub { font-size: 14px; color: #5a6a9a; margin-bottom: 24px; line-height: 1.6; }
-    .cta-btn { display: block; background: #0D1B4B; color: #fff; font-size: 16px; font-weight: 600; padding: 16px 24px; border-radius: 10px; text-decoration: none; letter-spacing: 0.3px; }
-    .cta-btn:hover { background: #1a3270; }
     .cta-note { font-size: 12px; color: #8a9abf; margin-top: 12px; line-height: 1.6; }
     .footer { background: #0D1B4B; padding: 20px 24px; text-align: center; }
     .footer p { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.6; }
@@ -74,9 +72,11 @@
         <p>A Clyvo é uma plataforma de telemedicina com IA que elimina a burocracia do pós-atendimento. Receita, atestado, pedido de exame, encaminhamento — tudo gerado por comando de voz em segundos, assinado digitalmente.</p>
         <p>Quem faz volume em telemedicina hoje perde entre 2 e 3 horas por dia só com documentação. A Clyvo devolve esse tempo para o que importa: o cuidado.</p>
         <p>Estou convidando um grupo muito seleto de colegas para usar antes de todo mundo e ajudar a moldar o produto. Sua opinião vai de fato impactar o que construímos.</p>
-        <p>Se você topar, é só clicar abaixo e escolher um horário de 40 minutos. Nós cuidamos do resto.</p>
+        <p>Se você topar, é só escolher um horário abaixo. Nós cuidamos do resto.</p>
         <div class="signature">
-          <div class="avatar">DA</div>
+          <div class="avatar">
+            <img src="https://i.imgur.com/PV6PJLg.png" alt="Dr. Altemar Paigel" />
+          </div>
           <div>
             <div class="sig-name">Dr. Altemar Paigel</div>
             <div class="sig-role">Conselheiro Executivo · Clyvo</div>
@@ -108,7 +108,7 @@
         <div class="step">
           <div class="step-num">1</div>
           <div class="step-text">
-            <strong>Você agenda uma sessão de 30/40 min</strong>
+            <strong>Você agenda uma sessão de 30 a 40 min</strong>
             <span>Nossa equipe te acompanha no primeiro acesso e simula uma consulta real com você.</span>
           </div>
         </div>
@@ -116,7 +116,7 @@
           <div class="step-num">2</div>
           <div class="step-text">
             <strong>Você usa o app por algumas semanas</strong>
-            <span>A meta é realizar ao menos 7 consultas por semana pela plataforma. Suporte direto disponível.</span>
+            <span>A meta é realizar ao menos 7 consultas pela plataforma. Suporte direto disponível.</span>
           </div>
         </div>
         <div class="step">
@@ -133,11 +133,9 @@
 
     <div class="cta-section">
       <div class="cta-title">Pronto para participar?</div>
-      <div class="cta-sub">Escolha um horário de 30/40 minutos.<br>Do cadastro à primeira consulta em menos de 20 minutos.</div>
+      <div class="cta-sub">Escolha um horário de 30 a 40 minutos.<br>Do cadastro à primeira consulta em menos de 20 minutos.</div>
       <div style="margin: 20px 0; border-radius: 10px; overflow: hidden; border: 0.5px solid #dce4f5;">
-        <!-- Google Calendar Appointment Scheduling begin -->
         <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0lOUjcPqNKe98L7JrqKS4hdCBr3XhWOFYcAeh0ffqP_e2qm0HVusGoMMJ3L6RsqW4KUMqM1MD1?gv=true" style="border:0;display:block;" width="100%" height="600" frameborder="0"></iframe>
-        <!-- end Google Calendar Appointment Scheduling -->
       </div>
       <div class="cta-note">Obrigado por fazer parte disso. Você está ajudando a construir o futuro da telemedicina.</div>
     </div>
