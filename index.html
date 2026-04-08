@@ -43,10 +43,34 @@
     .cta-section { padding: 32px 24px; text-align: center; }
     .cta-title { font-size: 18px; font-weight: 700; color: #0D1B4B; margin-bottom: 8px; }
     .cta-sub { font-size: 14px; color: #5a6a9a; margin-bottom: 24px; line-height: 1.6; }
-    .cta-note { font-size: 12px; color: #8a9abf; margin-top: 12px; line-height: 1.6; }
+    .cta-note { font-size: 12px; color: #8a9abf; margin-top: 16px; line-height: 1.6; }
     .footer { background: #0D1B4B; padding: 20px 24px; text-align: center; }
     .footer p { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.6; }
     .footer span { color: rgba(109,184,242,0.8); }
+
+    /* Botões de horário */
+    .schedule-box { background: #F7F9FF; border: 1px solid #dce4f5; border-radius: 12px; padding: 20px; }
+    .schedule-label { font-size: 11px; font-weight: 600; color: #6DB8F2; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; }
+    .time-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .time-btn {
+      background: #fff;
+      border: 1px solid #dce4f5;
+      border-radius: 20px;
+      padding: 9px 4px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #0D1B4B;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .time-btn:hover { background: #0D1B4B; color: #fff; border-color: #0D1B4B; }
+    .time-btn:active { transform: scale(0.97); }
+
+    @media (max-width: 380px) {
+      .time-grid { grid-template-columns: repeat(3, 1fr); }
+    }
   </style>
 </head>
 <body>
@@ -135,10 +159,13 @@
     <div class="cta-section">
       <div class="cta-title">Pronto para participar?</div>
       <div class="cta-sub">Escolha um horário de 30 a 40 minutos.<br>Do cadastro à primeira consulta em menos de 20 minutos.</div>
-      <div style="margin: 20px 0; border-radius: 10px; overflow: hidden; border: 0.5px solid #dce4f5;">
-        <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0lOUjcPqNKe98L7JrqKS4hdCBr3XhWOFYcAeh0ffqP_e2qm0HVusGoMMJ3L6RsqW4KUMqM1MD1?gv=true" style="border:0;display:block;" width="100%" height="600" frameborder="0"></iframe>
+
+      <div class="schedule-box">
+        <div class="schedule-label">Escolha seu horário</div>
+        <div class="time-grid" id="time-grid"></div>
       </div>
-      <div class="cta-note">Obrigado por fazer parte disso. Você está ajudando a construir o futuro da saúde digital</div>
+
+      <div class="cta-note">Após clicar no horário, você será direcionado ao WhatsApp para confirmar com nossa equipe.<br>Obrigado por fazer parte disso. Você está ajudando a construir o futuro da saúde digital.</div>
     </div>
 
     <div class="footer">
@@ -146,5 +173,28 @@
     </div>
 
   </div>
+
+  <script>
+    const numero = '5541995897380';
+    const grid = document.getElementById('time-grid');
+    const horarios = [];
+
+    for (let h = 8; h < 20; h++) {
+      horarios.push(String(h).padStart(2, '0') + ':00');
+      horarios.push(String(h).padStart(2, '0') + ':30');
+    }
+    horarios.push('20:00');
+
+    horarios.forEach(function(h) {
+      const a = document.createElement('a');
+      const texto = encodeURIComponent('Olá! Gostaria de agendar minha sessão com a CLYVO para as ' + h + '. Poderia confirmar a disponibilidade?');
+      a.href = 'https://wa.me/' + numero + '?text=' + texto;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.className = 'time-btn';
+      a.textContent = h;
+      grid.appendChild(a);
+    });
+  </script>
 </body>
 </html>
