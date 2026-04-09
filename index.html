@@ -48,9 +48,41 @@
     .footer p { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.6; }
     .footer span { color: rgba(109,184,242,0.8); }
 
-    /* Botões de horário */
+    /* Agendamento */
     .schedule-box { background: #F7F9FF; border: 1px solid #dce4f5; border-radius: 12px; padding: 20px; }
     .schedule-label { font-size: 11px; font-weight: 600; color: #6DB8F2; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; }
+
+    /* Seleção de dia */
+    .day-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+    .day-btn {
+      background: #fff;
+      border: 1.5px solid #dce4f5;
+      border-radius: 10px;
+      padding: 12px 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #0D1B4B;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .day-btn span.day-num { font-size: 20px; font-weight: 700; color: #0D1B4B; line-height: 1.2; }
+    .day-btn span.day-label { font-size: 11px; font-weight: 500; color: #8a9abf; }
+    .day-btn:hover { background: #eef3ff; border-color: #6DB8F2; }
+    .day-btn.active { background: #0D1B4B; border-color: #0D1B4B; }
+    .day-btn.active span.day-num { color: #fff; }
+    .day-btn.active span.day-label { color: #6DB8F2; }
+
+    /* Painel de horários */
+    .time-panel { display: none; }
+    .time-panel.visible { display: block; }
+    .time-panel-label { font-size: 12px; font-weight: 500; color: #5a6a9a; margin-bottom: 10px; }
+
+    /* Grid de horários fixos (dia 14 e 15) */
     .time-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
     .time-btn {
       background: #fff;
@@ -68,8 +100,43 @@
     .time-btn:hover { background: #0D1B4B; color: #fff; border-color: #0D1B4B; }
     .time-btn:active { transform: scale(0.97); }
 
+    /* Painel "outro dia" */
+    .outro-dia-form { display: flex; flex-direction: column; gap: 12px; }
+    .outro-dia-form label { font-size: 13px; font-weight: 500; color: #0D1B4B; margin-bottom: 4px; display: block; }
+    .outro-dia-form input[type="date"],
+    .outro-dia-form input[type="time"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #dce4f5;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #0D1B4B;
+      background: #fff;
+      outline: none;
+      font-family: inherit;
+    }
+    .outro-dia-form input:focus { border-color: #6DB8F2; }
+    .outro-dia-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .outro-dia-send {
+      background: #0D1B4B;
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      padding: 13px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 4px;
+      transition: background 0.15s, transform 0.1s;
+      font-family: inherit;
+    }
+    .outro-dia-send:hover { background: #162f7a; }
+    .outro-dia-send:active { transform: scale(0.98); }
+
     @media (max-width: 380px) {
       .time-grid { grid-template-columns: repeat(3, 1fr); }
+      .day-grid { grid-template-columns: 1fr 1fr 1fr; }
     }
   </style>
 </head>
@@ -162,7 +229,53 @@
 
       <div class="schedule-box">
         <div class="schedule-label">Escolha seu horário</div>
-        <div class="time-grid" id="time-grid"></div>
+
+        <!-- Seleção de dia -->
+        <div class="day-grid">
+          <button class="day-btn" id="btn-dia14" onclick="selecionarDia('14')">
+            <span class="day-num">14</span>
+            <span class="day-label">abril · qua</span>
+          </button>
+          <button class="day-btn" id="btn-dia15" onclick="selecionarDia('15')">
+            <span class="day-num">15</span>
+            <span class="day-label">abril · qui</span>
+          </button>
+          <button class="day-btn" id="btn-outro" onclick="selecionarDia('outro')">
+            <span class="day-num" style="font-size:15px; margin-top:3px;">outro</span>
+            <span class="day-label">dia</span>
+          </button>
+        </div>
+
+        <!-- Horários dia 14 -->
+        <div class="time-panel" id="panel-14">
+          <div class="time-panel-label">Horários disponíveis — 14 de abril</div>
+          <div class="time-grid" id="grid-14"></div>
+        </div>
+
+        <!-- Horários dia 15 -->
+        <div class="time-panel" id="panel-15">
+          <div class="time-panel-label">Horários disponíveis — 15 de abril</div>
+          <div class="time-grid" id="grid-15"></div>
+        </div>
+
+        <!-- Outro dia -->
+        <div class="time-panel" id="panel-outro">
+          <div class="time-panel-label">Informe o melhor dia e horário para você</div>
+          <div class="outro-dia-form">
+            <div class="outro-dia-row">
+              <div>
+                <label for="outro-data">Data</label>
+                <input type="date" id="outro-data" />
+              </div>
+              <div>
+                <label for="outro-hora">Horário</label>
+                <input type="time" id="outro-hora" min="08:00" max="20:00" step="1800" />
+              </div>
+            </div>
+            <button class="outro-dia-send" onclick="enviarOutroDia()">Confirmar pelo WhatsApp</button>
+          </div>
+        </div>
+
       </div>
 
       <div class="cta-note">Após clicar no horário, você será direcionado ao WhatsApp para confirmar com nossa equipe.<br>Obrigado por fazer parte disso. Você está ajudando a construir o futuro da saúde digital.</div>
@@ -175,26 +288,70 @@
   </div>
 
   <script>
-    const numero = '5541995010788';
-    const grid = document.getElementById('time-grid');
-    const horarios = [];
+    var numero = '5541995010788';
 
-    for (let h = 8; h < 20; h++) {
-      horarios.push(String(h).padStart(2, '0') + ':00');
-      horarios.push(String(h).padStart(2, '0') + ':30');
+    // Horários disponíveis por dia (personalize conforme necessário)
+    var horariosDia14 = ['08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00'];
+    var horariosDia15 = ['08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00'];
+
+    function criarBotoesHorario(gridId, horarios, dia) {
+      var grid = document.getElementById(gridId);
+      grid.innerHTML = '';
+      horarios.forEach(function(h) {
+        var a = document.createElement('a');
+        var texto = encodeURIComponent('Olá! Gostaria de agendar minha sessão com a CLYVO para o dia ' + dia + ' de abril às ' + h + '. Poderia confirmar a disponibilidade?');
+        a.href = 'https://wa.me/' + numero + '?text=' + texto;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.className = 'time-btn';
+        a.textContent = h;
+        grid.appendChild(a);
+      });
     }
-    horarios.push('20:00');
 
-    horarios.forEach(function(h) {
-      const a = document.createElement('a');
-      const texto = encodeURIComponent('Olá! Gostaria de agendar minha sessão com a CLYVO para as ' + h + '. Poderia confirmar a disponibilidade?');
-      a.href = 'https://wa.me/' + numero + '?text=' + texto;
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-      a.className = 'time-btn';
-      a.textContent = h;
-      grid.appendChild(a);
-    });
+    criarBotoesHorario('grid-14', horariosDia14, '14');
+    criarBotoesHorario('grid-15', horariosDia15, '15');
+
+    function selecionarDia(dia) {
+      // Resetar botões
+      document.getElementById('btn-dia14').classList.remove('active');
+      document.getElementById('btn-dia15').classList.remove('active');
+      document.getElementById('btn-outro').classList.remove('active');
+
+      // Esconder todos os painéis
+      document.getElementById('panel-14').classList.remove('visible');
+      document.getElementById('panel-15').classList.remove('visible');
+      document.getElementById('panel-outro').classList.remove('visible');
+
+      // Ativar selecionado
+      if (dia === '14') {
+        document.getElementById('btn-dia14').classList.add('active');
+        document.getElementById('panel-14').classList.add('visible');
+      } else if (dia === '15') {
+        document.getElementById('btn-dia15').classList.add('active');
+        document.getElementById('panel-15').classList.add('visible');
+      } else {
+        document.getElementById('btn-outro').classList.add('active');
+        document.getElementById('panel-outro').classList.add('visible');
+      }
+    }
+
+    function enviarOutroDia() {
+      var data = document.getElementById('outro-data').value;
+      var hora = document.getElementById('outro-hora').value;
+
+      if (!data || !hora) {
+        alert('Por favor, preencha a data e o horário desejado.');
+        return;
+      }
+
+      // Formatar data para exibição (dd/mm/aaaa)
+      var partes = data.split('-');
+      var dataFormatada = partes[2] + '/' + partes[1] + '/' + partes[0];
+
+      var texto = encodeURIComponent('Olá! Gostaria de agendar minha sessão com a CLYVO para o dia ' + dataFormatada + ' às ' + hora + '. Poderia confirmar a disponibilidade?');
+      window.open('https://wa.me/' + numero + '?text=' + texto, '_blank', 'noopener,noreferrer');
+    }
   </script>
 </body>
 </html>
